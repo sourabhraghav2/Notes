@@ -1,2 +1,2 @@
 # Notes
-DSA ntes
+DSA notes
