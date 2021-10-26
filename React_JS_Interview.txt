@@ -1,0 +1,26 @@
+1). Virtual Dom vs Real Dom
+	Virtual Dom:
+		Changes can be made easily
+		Minimum wastage of memory
+		Doesn't manuplate HTML directly
+		Faster
+		React Operate Virtual Dom
+	
+	Real Dom
+		Changes are expensive
+		Lot memory waster and create new Dom everytime
+		Manuplate HTML directly 
+		Slow
+		Angular Operate Real Dom
+2). jsx : 
+		javascript xmlcan make it typescript
+		browser doesn't read jsx directly 
+		jsx is transformed to to javascript by transformer
+3). Advantages of React
+		UI testing becomes easy
+		React can be integrate with Angular also 
+		React can be used as front end as well as backend
+		Application performance
+	Disadvantages :
+		React has to use different libraries not completly self dependent
+		

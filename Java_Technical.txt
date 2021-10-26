@@ -1,0 +1,336 @@
+1). equals and instanceOf difference 
+	boolean result = (loader.getClass() == Thread.class); // true 
+	result = (loader.getClass() == Runnable.class); // false because we are testing against 
+	Runnable result = loader instanceof Thread; // true because the loader is an object of Thread class 
+	result = loader instanceof Runnable; // true because the loader is an instance of Thread 
+										// and it implements Runnable
+
+2). Executor service :
+	corePoolSize =minpool will be created
+	maxPoolSize =maxpool will be created
+	keepAliveTime=after completing task thread pool is allow to be alive for certain time
+	Time unit: time unit of timeout
+	blockingqueue=fixed size blocking queue
+	Reject Handler
+	
+	Future obj<-executor.submit(new task) //could be runnable of callable
+	obj.isDone()
+	obj.get() //waits untill task is executed completly
+	obj.cancel()//cancell runnable if not given to thread
+	
+	callable return something
+	runnable return void
+	
+3). How many thread to should have
+	Depends upon below factors
+	1). How many CPU exist
+	2). What kind of task	
+		if task heavy CPU usage
+			Then the only equal number of cores
+				But If one task takes lot of time and other small tasks are really small then 
+				increase thread			
+		else
+			If task prform IO/Network then 
+			Can be increased more than core
+	3). How much time takes for IO/Network
+		if High IO time 
+			high number of thread
+		if low IO time
+			less number of thread
+	Hit and Try you will reach optimal number of core
+
+	
+4). Circuit breaker 
+	fault tolerance or latency tolerance
+	creieria : 
+	-timeoutInMilliseconds
+	-requestVolumeThreshold
+	-errorThresholdPercentage
+	-sleepWindowInMilliseconds
+	
+5). Concurrent logger
+	
+9). TreeMap -> ConcurrentSkipListMap
+	List -> CopyOnWriteArrayList
+	Map -> ConcurrentHashMap
+	Lock -> ReentrantLock
+
+6). Which GC to use:
+	Serial  GC: good for shared CPU and good for small devices
+	Parallel GC: high latency high pause but big memory free
+	CMS GC: Low latency Reduce throughput 
+	G1 GC: Faster and have precictable free time
+	
+	
+5). Thread local: local to thread that could be used by multiple tasks loading to thread	
+	You can creater list thread executor and based on hashcode of primary key % length of executor list
+	use thread local 
+	
+6). Sleuth
+
+7). Memory management(https://www.youtube.com/watch?v=aAjkJW08BGQ)
+	Stack: 
+		Method`
+	Heap:
+		Eden:
+			active object creation
+			Garbage is fast and runs quickly
+		Survior Memory 1
+			Survived from Eden memory in G1
+		Survior Memory 2
+			Survived from Eden memory in G1
+		
+		Old Generation:
+			Major Garbage collector
+			and object from G1 are transfered to OLD if s1 & s22 are filled
+			
+			Memory Pool :
+				-Used to store immutable object
+				-Run time by JVM memory manager
+			
+	Permanent memory
+		-Run time constant pool
+		-Static variables
+		-Constant variables
+		
+	
+
+8). Thread 
+	yield -> object yield will put object in waiting and other same proirity  will be executed
+	notify -> any single thread wake up 
+	notifyAll -> all thread waiting on monitoring will be awaked
+	wait -> keep thread on hold untill notified
+	join -> want to wait untill the completion of some other thread  (blocks the code)
+	sleep -> don't want to perform anything for specific time
+
+
+9). Mutability can create problem in concurrency
+	Data corruption by 2 threads
+
+10).Immutability limitation
+	1). More space required
+	2). low performancy when you hav eto modify the object frequently
+	
+11).Unmodifiable views vs immutable copy (https://newbedev.com/immutable-vs-unmodifiable-collection)
+	Unmodifiable views -> An unmodifiable collection is often a wrapper around a modifiable collection which other code may still have access to. So while you can't make any changes to it if you only have a reference to the unmodifiable collection, you can't rely on the contents not changing.
+	Immutable copy->An immutable collection guarantees that nothing can change the collection any more. If it wraps a modifiable collection, it makes sure that no other code has access to that modifiable collection
+		List<String> strings = new ArrayList<String>();
+		List<String> unmodifiable = Collections.unmodifiableList(strings);
+		unmodifiable.add("New string"); // will fail at runtime
+		strings.add("Aha!"); // will succeed
+		System.out.println(unmodifiable);
+12). Scaling Databases
+	Master slave :
+		advantages: 
+			high availability pretty good for reads
+		disadvantages
+			read lag 
+			replication required
+			no effect to writes
+	Sharding :
+		advantages
+			high availability pretty good for reads & writes both
+		disadvantages
+			joins area almost impossible
+			complex queries
+	Condensing the queries and flushing in batch
+		advantages
+			efficient write 
+		disadvantages
+			lag in read
+
+13). Moving from Monolith to Microservice
+	1). Implement Anti corruption layer : don't make monolith as your depenency with rspect to DB and logic
+		For example 
+			Take out Authenticaltion MS
+	2). Streamline the build
+		Mostly project build is dependent on many hidden dependencies
+		Make it containerized
+	3). Reduce the tangling of dependencies
+		follow some order or the hirarchy 
+	4). Reduce the time of local development
+	5). Trunk based development	
+		Make small branches instead of long lived branches.
+		follow the PR/MR policies to move faster and safe
+	6). Develop Microservices process
+		PR 
+		Must have code review 
+		Must have collection
+		Must have wiremock
+		Must have approvals
+	7). Parallel feature (AB experiment)
+	
+14). Indexing uses B Tree and B+ Tree
+
+15). Communication type :
+	HTTP: REST
+	Websocket
+	Http Streaming
+	Web hooking (call back)
+	
+16). Multi level sharding : Both can be applied one after another
+	1). based on location
+	2). user based sharing
+	
+17). Distributed lock
+
+18). Distributed transactions
+	- Two phase commit 
+		Coordinator required
+			1). create transaction Id 
+			2). check with all the tables and lock the row
+			3). udate and commit 
+			4). release
+			
+			Disadvantages : 
+				what is cordinator failed during commit
+			Advantage:
+				hold resource for time
+	- Three phase commit 
+		can commit 
+		pre commit
+		full commit 
+		
+	  Disavantages : 
+			synchronus
+			 &
+			slow
+	- Saga
+		Independeent transactions on each MS
+		if failed rollback is initiated
+	-Multi version concurrency control (follows the push phase of github lol)
+		1). Simultaion
+		2). validation
+		3). commit 
+
+19). Optimistic lock vs Pessimistic lock
+	Optimistic lock follow versioning 
+	Pessimistic lock lock the data
+	
+		
+Spring boot
+1). Bean lifecycle
+	@Post construct
+		Example data base connectivity
+	
+	@Pre Destroyed
+		Closing of file
+		
+	AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(App.class)
+	context.stop()//will not let the @Predestruct  call
+	context.close() //@PreDestructor will be called
+	context.registerShutdownHook() //ensure @PreDestruct and @PostConstruct called
+	servletDispatcher perform ContextLoaderListener trigger @PreDestructor
+2). RestTemplate
+	GetForEntity:
+		ResponseEntity which will give header control
+	GetForObject:
+		Object
+	Exchange:
+		Flexibility of header
+	Readtimeout: Reading and timeout
+	ServerTimeout: Unable to connect to server and 
+		
+3). ResponseEntity:
+		Gives more flexibility of status code usng methods
+4). Bearer : claims that requester is the owner
+	Basic
+5). Content nagotiation
+		content-type (produce of consume)
+6). Cross cutting concern
+	AOP: uses for making aspect entirely different from main logic ans can be handled separately
+	
+7). Factory design pattern 
+		Bean factory 
+8). Exception Handler
+	@ControllerAdvice with extends ResponseEntityExceptionHandler
+	and override the method
+	@ExceptionHandler(CustomExceptionName.class) write the custom handling in method
+	
+9). Multiple datasources in single application
+	1). Properties
+		spring.<dimain>.datasource.jdbcUrl
+		spring.<dimain>.datasource.driver
+		spring.<dimain>.datasource.username
+		spring.<dimain>.datasource.password
+	2). @Configuration 
+		@EnableTransactionManagement
+		@EnableJpaRepository (
+			entityManagerFactory=<qualifier_below>,
+			transactionManager=<qualifier_below> 
+			basePackage=""  <---specify the repository package
+			)
+	
+	3). Create DataSourceBean (qualifier) 
+		@Primary
+		@ConfigurationProperties()("")<-path of properties
+		
+	4). Create EntityManagerFactoryBean using existing DataSource(Qualifier) EntityBeanFactory
+		set dialect as a property
+		@Primary
+	5). Create PlatformTransactionManager use the EntityBeanFactory qualifier 
+		@Primary
+	
+10). Difference between Predicate and Function
+	A Predicate takes one object argument and returns a Boolean value where as a Function takes an object argument and returns an object
+		
+11). Transaction in Spring boot	
+	@EnableTransaction<-startup main
+	@Transactional(readopnly=false,isolation,propogation)<-on the method
+12). API 
+	PathParam : part of URL 
+	RequestParam: start after question mark
+	RequestPart : other type of parameters
+13). Hibernate disadvantages:
+		Performance Cost: generates the queries and slower than jdbc because no need to generate queries
+		Code becomes complex with joins
+		Poor performance on batch processing
+		Not advisable for small projects
+14). Completable future in Spring boot
+	@EnableAsync
+	create Executor bean
+	
+	@Async on method of service and return CompletableFuture
+	
+15). Put vs Patch 
+	Put :
+		Update while record
+	Patch :
+		Update small segment of data 
+16). Dependency Injection
+	Constructor
+	setter
+	fields
+
+17). tic tak toe
+18). expression evaluation
+
+
+Project:
+	mobile-creditcard
+	mobile-kyc
+	mobile-lending
+	mobile-profiles
+	mobile-wallet
+	face-verification
+
+
+Hackerrank : DSA
+test case 
+2 question 
+1 hour
+
+
+2nd API 
+consurrent logger
+sircuit break 
+concurrent 
+volatimle 
+memory management 
+threading
+ gc which 
+ 
+SD 
+instagram
+
+behaviour tech 

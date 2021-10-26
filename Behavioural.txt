@@ -1,0 +1,199 @@
+Behaviour:
+1). Self Weekness 
+	-I get disappointed when I am to get blocked
+		-In sprint task break down clear out all the dependencies
+		-If not then make task to do 
+		-And finish the task before deadline so that even if delay is made i can cover up the time
+	-Public speaking is hampered due to covid (In Person interaction comminication gap)
+2). What do you dislike about old job
+	-Limited access to Solutioning the problem
+	-No scope for full stack
+	-Larget code base not fltten layers
+	-Travel domain is risky during covid
+3). Gretest professional achievement
+	-Piched hobbies projects and got implemented in production with real env
+4). Why do you want to work with the this company
+	-brand value
+	-Scala love
+	-Full Stack Development
+	-Europe stability (Long term commitment)
+5). Tell me the time when you failed.
+	-Feature went with bug due to security contraints
+	-Was fixed before time while final testing
+6). What would you do if you made strong recommendation but your colleague decided something else
+	-Demonstration with POC available for team to test freely
+7). How would you handle in your team resist your idea or policy
+	-Voting in the team with reasons
+	-If still not agreeing then go with them.
+8). What would you do if you do some others work and expectations are not meet.
+	-Try to understand what went wrong with expectations
+	-Before jumping to development would ensure the expectations and keep buffer of atleast one day to verify the work 
+	-Though review process avoid the last minute mistakes
+9). How do you handle priorities if it changes suddenly.
+	-If the impact of the work is high severity 
+	-The inform about the change in the proirities to corresponding stake holders 
+	-Jump to new work 
+	-If both are high proirity and urgent then fix high priority & urgent and then come to fix other by doing over time
+	-Importance and urgency
+10). What would you do if the work done was not up to the standared but the deadline is already passed.
+	-If not then fix untill it becomes workable
+	-Active : Know about the impact if high severity then immediately inform to respective stake holder/manager
+		-And plan to fix it
+	-Passive : And highlight it retrospection and plan action for that
+11). How would you handle with whom you were not able to make a positive relationship
+	-Maintain professional relationship 
+	-If possible to talk personally and clear doubts
+	-Compliments on the achievement
+	-Listen more and try to know others assesment about you
+	-And try to tell him your assesment about him
+12). What would  you do if you disagree with the work the manager want you to do?
+	-Check for the validity of Reason.
+	-If disagree then come up with POC to prove the point and keep the team informed the impact of the feature on product
+	-If still same result then ok to work as boss directed
+13). How would deal with client which is dificult to handle	
+	-Get the requirements and expectations of client and deliever on time without lag
+	-Professionaly listen 
+	-What will be the technology and find optimal solution
+	-Try to focus on the things which concern them.
+	-Try to know the reason of such difficult beahaviour
+14). What would you do if your hard finded solution was criticised by the team.
+	-Will suggest to go for AB testing
+	-if my hard finded solution lost then learn from lost and log in retrospective
+15). How would you handle with a colleage who is very different from you.
+	-Its fun to know new guy and will have friendly and helpful relation
+	-Will definately learn new things 
+16). You are working on key projet and which is delayed by your colleague
+	-Conversation with colleague and try to know the reason and the find quick solution maybe work with him
+	-If not highlight in standup call if that is the sprint goal
+	-If I can help to solve that by giving extra hours will solve it out
+17). You realise your mistake which is going to put you behind the deadline
+	1). Highlight to boss/manager about impact and reason and with solution plan
+	2). Hightlight in the standup first about the blockers and mayybe help required
+	3). Put day and night to complete is that was spring goal or critical.
+18). Tell us the difficult situation you overcome in your work place.
+	-Yeah when we used to be on 24 hour shift if there is something which goes to office to fix the bugs
+	-Was managing travel and working at night to coop up with team
+19). Are you willing to work over time
+	-Yeah quite habitual during release times
+	-In release time even I worked for 2 days straights (48 hours)
+20). What did you do to improve your skills in past time.
+	-Took courses on weekend and off hours
+	-Make POC and keep positing on Git
+	-Technical conversation with teams
+	-Team tech talk
+21). What disappoint you at your previous job
+	-Covid time
+	-Code base was quite heavy
+	-And no document about code or no walk through of code
+	-Last moment changes in design
+	-Even after Microservice was quite a big Microservice
+22). Do you have any blind spot (bad habit)
+	-Try to deep dive into the code and which takes time
+23). How well do you perform under pressure
+	-Cannot say very well under pressure but I take one step back and think what could make the work done so fast,
+	-And subconcious mind work really fast 
+	-Just keep extra effort and time
+24). Your strength
+	-Logically sound
+	-Always interested in chanllenging and complex task and new tech learning
+25). Why did you leave/leaving last job
+	-Covid second wave
+26). How would your boss or your coworker describe you.
+	-Helpful
+	-Clean coder
+27). What experience did you have in last organization.
+	-Many tech stack, Funcational programming
+	-Grew technically
+	-Amazing activeties
+	-Basketball team
+28). Do you work well within a team
+	-Team player
+	-Good mentor
+29). Where do you see your career in next 5 years 
+	-Technical Architecture
+30). How is your day in the office
+	-WHF : See the jira board clear out the things if required
+		-Check all slack channel
+		-Check the meetings
+		-Usual work
+		-Before starting the task on the sprint check on R&D best optimal solution
+31). What challenges/expectations are you looking for on this role
+	-New tech stack
+	-Getting chance to interact like/talented minded people
+	-Getting familiar to similar tools
+32). What do you already know about the company.
+	-Doubtful
+	Job desc, creating value society
+33). How do you persue someone to do something
+	-Based on interest
+	-Demonstrating the advantages about the task and impact
+34). How Many Tennis Balls Can You Fit into a Limousine
+	Ball
+	Volume = 4/3πr3
+	Volume = 1.3*3*(1)3
+	Volume = 3.9*(1)3
+		4 cubic inches m3
+	Car 
+	2 meter in width = 80 inches
+	10 meter in length = 800 inches
+	1.5 meter height = 60 inches
+		1500000 m3
+	1500000 /4= 
+35). What is most difficult employee situation did you find
+	-Bug in UAT feature
+36). Do you work well in team
+	-Team player
+	-Good mentor
+37). Do you like to work apart from your work /and apart from your work
+	-Hobbies tool to speed up the development like mocker
+	-Certification of GCP
+	-Go Lang
+	-Hobby of teaching
+38). How well do you know this industry
+	-Research about the company
+	-Glassdoor
+	-Wikipedie
+	-Objective
+39). Most important task you ever did
+	-Impactfull yes Valentines feature
+		-STAR
+	-Production suport application
+		-STAR
+40). What would you do in initial 90 days of employeer
+	-Know expectations from Team and Role
+	-Understand the company culture
+41). What kind of work environment do you like.
+	-Motivated and helpful/friendly people
+	-High intellect
+42). Any emergency situation did you face during work
+	-War room
+	-Free credit
+	-Release had one bug (didn't sleep for 2 days)
+43). How would you motivate team to make productivity.
+	-Reduce the development time
+	-Small appriciation achievemnent badge (goodies)
+	-Team lunch or team sports
+44). Biggest achievement
+	-Heat reading sensor to trip off the machine which went into prodution
+	-Production suport application
+		-STAR
+45). Different idea you worked on
+	-Mostly try doing different idea implementation
+	-Develop small services
+	-Buy the product and Hashtag
+		-STAR
+46). What motivates you
+	-Apriciation
+	-Technical growth/Quality of work
+	-Ownership
+47).  Tell me three things about yourself which are not in your CV
+
+48). Good manager:
+	-They Align Organizational Purpose With Team Goals 
+	-They Demonstrate Empathy With Their Team
+	-They Delegate Tasks Effectively 
+	-They Set Clear Goals And Expectations 
+	-They Make Communication A Priority 
+	-They Bring Out The Best In Their People  
+	-Cheers for the success
+	-They Inspire At Every Level

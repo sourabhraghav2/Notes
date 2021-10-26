@@ -1,0 +1,150 @@
+1). Parking Lot 
+	Requirement:
+		1). Big parking lot 10k -20k
+		2). 4 entry 4 exists
+		3). Ticket online as well as while entrying
+		4). Nearest to the entrance
+		5). Spots type -> (Handicap/pragnent women, compact,large,motorbike)
+		6). Hourly rates
+		7). Cash and credit cards
+		8). Monitoring  (CCTV, Admin panel)
+		9). Extendible/Reusable
+	
+	Solution
+		Top down
+		Bottom Up
+		
+	Parking lot terminal
+		1). Parking Spots
+		2). Entry exit terminal
+		3). Booking Recipt (Email,message) & notification
+	Class hirerchy
+		-ParkingSpot:interface
+			id:int
+			vehicle:Vehicle
+			status:Boolean
+			reserve:()->{}
+		Special implements ParkingSpot
+		Compact implements ParkingSpot
+		Large implements ParkingSpot
+		Motorbike implements ParkingSpot
+		
+		-Terminal : interface
+			id: int
+			floor:int
+			status:boolean
+			generateTicket:()->{}
+			shortestAvailableSlot:Min Heap
+			reservedSlot:Set
+		Entry: Terminal
+		Exit: Terminal
+		
+		-Strategy:interface
+			bookSlot:()->{}
+			releaseSlot:()->{}
+		
+		FlatRate:Strategy 
+		AreaPeakRate:Strategy 
+
+2). Elevator Design
+	How many floors in building
+	How many elevator cars
+	Zones O evenOdd
+	Optimization 
+		Passenger wait time reduction
+		Max number of people transported
+		Optimization in resource usage (maintainance cost)
+3). Design a Traffic Controller System
+		
+		
+3). Google Drive
+	Functional requirement
+		Upload/Download
+		Maintain history
+		Sync file
+		Modify file
+4). Tiny URL 
+	Functional Requirement	
+		createTinyUrl(url, ttl)
+		getTinyUrl(url)
+	Non functional requirement
+		scalability
+		availability
+		fault tolerance
+		strong consistency
+		cost optimization
+		low latency
+	
+	Solution algo :
+		generaing Hash(128 bit) -> base 64 ->21 character
+		zookeeper (high maintainance required)
+		key generation (high maintainance and coordination required)
+		
+		Base 64 or 62
+
+5). Distributed Cache
+	Policies:
+		cache aside
+		read through
+		write through cache (synchronus)
+		write back/behind (asynchronus)
+		refresh/read ahead(use ML to load recommended data)
+		
+	Cache eviction policy
+		Least recent used (LRU)
+		Least frequently used (LFU)
+		Most recent used (MRU)
+			Mostly used with read ahead
+			The recommendation which has been generated will not be used after one use
+	Functional requirement
+		1). write key and value
+		2). get key value
+		3). invalidate the key value
+		4). implement LRU
+		5). cache aside
+	Non functional requirement
+		1). High available
+		2). fault tolerance
+		3). low latency
+		4). Scalable
+		5). Strongly consistent
+6). Distributed datastore
+
+
+
+7). Instagram 
+	Functional Requirement 
+		Upload post (video/image)
+		delete post (video/image)
+		Follow celebrity
+		Add like/comment
+		See feeds
+		Upload feeds
+		Activity logs
+			
+			
+8). Encryption and decryption
+	Symetric key 
+		Same key decided by both parties will be used in encryption and decryption
+	Asymetric Key
+		Server:
+			Generate private & public key
+		Client:
+			Generate private and public key
+			
+	Private Key : 
+		Used : Decryption & signing
+	Public key :
+		Used : encryption & verification
+		
+	Certificate Authority :
+		Is well known party by client and server
+		
+	Steps: Public key sharing and ensuring that it is sent by client only
+	1). Client Pub key ----> Certificate Authority
+	2). Signed Certificate(Pub Key of client)  <---- Certificate Authority
+	3). Client share the Signed Certificate(Pub Key of client) to Server and server using PubKey of CA can verify that it is certifies party only
+	
+	
+	
+	

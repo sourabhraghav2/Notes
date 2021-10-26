@@ -1,0 +1,845 @@
+
+1). https://www.geeksforgeeks.org/a-product-array-puzzle/
+2). Tuple and list 
+3). Find total # of numbers that satisfy x*(x+1) that fall within a and b (a, b, x all integers and a<=b)
+4). The contracts of the equals / hashCode / compareTo 
+	equals and hashcode are directly related to the optimization of speed in collections
+	Logical contract  : Override in what so ever way if regardless optimization
+		if ob1.equals(ob2)==true then
+			ob1.hashcode==ob2.hashcode
+	If not followed : ob1.equal(ob2) ==true
+		But will be kept on different bucket while storing inside hashset
+		Which will create redundancy which breaks the rule of Set
+	Default implementation for equal and hashcode based on memory
+	
+5). Understand when a Set is more appropriate than a List
+	uniquness
+6). What situations a LinkedList is preferable to an ArrayList
+	When you want to do frequent delete
+7). Time and space complexities of common usage patterns
+8). Immutability and the reasoning behind using it.
+	Immutability makes performance impact in String 
+	String s=""
+	for (i=0;i<100;++i)
+		s+=i
+	//its O(n^2) complexity
+	where as 
+	StringBuilder s=new StringBuilder("")
+	for (i=0;i<100;++i)
+		s.append(i)
+	//O(n)
+
+8). SQL vs NO SQL :
+	SQL :
+		Predefined schema 
+		SQL databases are table-based
+		Vertical (scale-up with a larger server)
+		ACID support
+		Typically joins required
+		
+	NOSQL :
+		Flexible schema for unstructured data
+		NoSQL databases are document, key-value, graph, or wide-column stores.
+		Horizontal (scale-out across commodity servers)
+		Only MongoDb support ACID
+		Typicaly joins not required
+
+9). Dependency injection vs inversion of control
+	DI is subset of IOC &  implementations of IoC, I use, are DI and ServiceLocator
+	IoC 
+		:Inversion of control is generic term, independent of language
+		:Giving control to the container to get an instance of the object is called Inversion of Control, 
+		means instead of you are creating an object using the new operator, let the container do that for you.
+		:IOC is responsible to inject the dependency by the read meta data from xml file
+		Implementation :
+			Factory Design pattern
+			Service locator pattern
+
+			
+	DI 
+		:Dependency Injection is concrete term
+		:Way of injecting properties to an object is called Dependency Injection
+		:Spring supports only Constructor Injection and Setter/Getter Injection
+		Implementation :
+			Constructor injection
+			Setter injection
+			Interface injection (Autowire)
+	Advantage :
+		:Easy to test 
+		:Decoupled
+		:Code reuseability
+	
+9). SOLID :
+	S: Single Responsibility Principle
+	O: Open-Closed Principle
+	L: Liskov Substitution Principle
+		:dont create new runtimeexception in subclass
+		:super calss method should be enought to full fill the needs
+	I: Interface segregation principle
+	D: Dependency inversion principle
+9). Work at understanding the difference between unmodifiable views and immutable copies.
+	An unmodifiable collection is often a wrapper around a modifiable collection which other code may still have access to. So while you can't make any changes to it if you only have a reference to the unmodifiable collection, you can't rely on the contents not changing.
+	An immutable collection guarantees that nothing can change the collection any more. If it wraps a modifiable collection, it makes sure that no other code has access to that modifiable collection. Note that although no code can change which objects the collection contains references to, the objects themselves may still be mutable - creating an immutable collection of StringBuilder doesn't somehow "freeze" those objects.
+10).How can you make a class immutable if it contains potentially mutable data like collections, dates, and arrays?	
+	creating new object whilet getmethod
+11). https://martinfowler.com/articles/richardsonMaturityModel.html#level0 
+12). design patterns 
+13). TDD
+14). Contract, or Defensive Programming
+	Design by contract 
+		Do the coding conmpletly dependent on contract without caring about any unexpected error
+	Defensive Programming 
+		Do the code by checking each and every condition just to avoid error in the assumption that contract is not followed
+	
+15). Understand concurrency, both on a low level (threads, synchronized blocks) and on a high level (ExecutorServices, ConcurrentMaps, BlockingQueues, ReadWriteLocks). Think about when lazy evaluation is preferable to eager copies.
+	Atomic(Solve sync problem) : ensure Atomic operation  (loack->read->operation->write->unlock)
+	Volatile(solve visibility problem) : ensures data is persister to other thread (thread1 write ->var1=4->thread2 can read var1=4)
+	
+	Consurrency: Interleaving of multiple threads on single core
+	Parallelism : Each core executing one thread simultaneously
+16). Reenterant lock vs readwrite lock
+	Reentrant lock :
+		can be acquire by only one thread and can be lock and unlock but only single thread is allowed
+	Read Write lock : has 2 modes
+		Read mode :
+			Multiple thread can read the data
+		Write mode :
+			same as that of reentrant lock
+		
+		
+16). Embrace the Inversion of Control
+	Instead of hardcoding the reference to one implementation
+	Autowiring/decoupling of components
+17). scaling and resilience, 
+18). event-driven architectures, and asynchronous logging
+	
+19). Redis
+20). Kafka (https://www.youtube.com/watch?v=q72vMNXoQ2E)
+	-Multiple broker are the kafka instances on which replication of topic can start (Topic is just like MS)
+	-One broker is the leader
+	-Zookeeper organize votingfor leader in broker
+	-Zookeeper manage state of broker and synchronization
+	-Zookeeper makes coordination between Brokers
+	-Zookeeper ensembler manages multiple Zookeeper (quorum are required to be uneven number)
+	-Leader takes the request and responses
+	-Leader share data to followers
+	-Exibitor tool to monitor Zookeeper
+	-Partition is not same as that of replication 
+	-Partition 3
+		 :Means if there were 9 messages then p1[3] + p2[3] + p3[3]
+	-Replication 3: means 3 more copies of partition
+	-Partition is like a bucket 
+	
+21). Why char array is preferred over String for storing password
+	String is immutable in java and stored in String pool. Once it's created it stays in the pool until unless garbage collected, so even though we are done with password it's available in memory for longer duration and there is no way to avoid it. 
+	It's a security risk because anyone having access to memory dump can find the password as clear text
+22). Does garbage collection guarantee that a program will not run out of memory
+	Garbage collection does not guarantee that a program will not run out of memory. It is possible for programs to use up memory resources faster than they are garbage collected. It is also possible for programs to create objects that are not subject to garbage collection
+22). inrerface implementing the default method
+	default void methodname (){}
+	
+23). diamond problem default method 
+	Solution :
+	A , B impl A, C impl A , D implements B,C 
+	D has to implement default method and inside it 
+	B.super.defaultMethodName(); 
+				OR 
+	C.super.defaultMethodName(); 	
+23). Memory usage 
+	Runtime.totalMemory()
+	Runtime.freeMemory()
+	Runtime.maxMemory()
+23). Should we override finalize method
+	Finalize is used by Java for Garbage collection. It should not be done as we should leave the Garbage Collection to Java itself.
+24). Can we call the garbage collector explicitly
+	Yes, We can call garbage collector directly but it doesn't guarantees that the gc will start executing immediately. This gc( ) method appears in both Runtime and System classes of java.lang package
+25). What are strong, soft, weak and phantom references in Java (https://www.youtube.com/watch?v=9mRBx8F5hIk)
+	Garbage Collector wont remove a strong reference.
+	A strong reference never garbage collect untill it becomes null (its any object created with new key word with new keyword)
+	A soft reference will only get removed if memory is full. SoftReference<Employee>
+	A weak reference will get removed on the next garbage collection cycle. WeakReference<Employee>
+	A phantom reference will be finalized but the memory will not be reclaimed. Can be useful when you want to be notified that an object is about to be collected.
+26). What does String intern() method do
+	intern() method keeps the string in an internal cache that is usually not garbage collected.
+	Moreover provide reference for scp object for corresponding string object present in heap memory
+27). Seriailzable to stop searializing the sub class then implement writeObject and readObject and throw exception
+27). serialVersionUID is required because
+	if already serialized and we make modification after  that then throws error InvalidClassException
+	because class is versioned with serialVersionUID
+28). Stream vs collection :
+	Collections:
+		Stored element having some feature
+	Stream :
+		View of collection and helps modification and generation of new colection
+29). HashMap key is immutable	
+	because if in case key is modified and hash code will also change which break the law of hashmap
+27). Which type of memory is cleaned / recovered by garbage collection - stack or heap
+	Heap memory
+28). Count down latch vs cyclic barear vs Phaser
+	Count Down Latch :
+		All thread wait for their respective count down  and once final count down finishes then the main thread can be exectude
+		Cannot be used again
+	Cyclic bareer :
+		Wait all the thread to reach at same place and then break the barier
+		Same object can be used again to perform same operation
+	Phaser : 
+		Can be used in both terms with more features
+29). Auto box and unboxing : used be wrapper to convert primitive to Object int->Integer
+28). Java doesn't provide exclusive access to memory like C/C++ and other lower level languages ? What are the advantanges and disadvantages 	
+28). Executor :
+	execute : 
+	submit: return future
+28). How do you share an object between threads
+	BlockingQueue  and producer consumer pattern
+28). Detect dead lock 
+	Jconsole->thread->detect deal lock ->kill that particular process on cmd
+	Avoid : order or acqire the lock should be the same order or releasing it across application
+
+29). Difference between indexing and partioning
+	Creating an index creates a separate table. ... Indexes are used to speed the search of data within tables. 
+	Partitions provide segregation of the data at the hdfs level, creating sub-directories for each partition. 
+	Partitioning allows the number of files read and amount of data searched in a query to be limited
+	
+30). What is a ConcurrentHashMap ?	Core Java
+	ConcurrentHashMap is a hashMap that allows concurrent modifications from multiple threads as there can be multiple locks on the same hashmap	
+31). What is a BlockingQueue
+	BlockingQueue is a Queue that supports operations that wait for the queue to become non-empty when retrieving and removing an element, and wait for space to become available in the queue when adding an element
+	
+32). What is CopyOnWriteArrayList 
+	Its a type of ArrayList in which all Write operations , i.e add and set are performed by creating a new copy. This array never changes during the lifetime of the iterator, so it never throws ConcurrentModificationException
+	
+33). What are the advantages and disadvantages of CopyOnWriteArrayList
+	This collections class has been implemented in such a manner that it can never throw ConcurrentModificationException. As it performs update and write operations by creating a new copy of ArrayList, It's slower compared to ArrayList.
+	
+34). Name few Concurrent Collection Classes
+	ConcurrentHashMap
+	ConcurrentLinkedDeque
+	ConcurrentLinkedQueue
+	ConcurrentMap
+	ConcurrentNavigableMap
+	ConcurrentSkipListMap
+	ConcurrentSkipListSet
+35). Isnt the use of HashTable and ConcurrentHashMap the same, i.e providing synchronized map collection 
+	Difference between concurrentHashMap and HashTable 
+	Yes, they both aim at providing synchronized access to the Map collection. The only difference is in their implementation. ConcurrentHashMap came after HashTable and hence technically more efficient as it doesn't lock the complete map while accessing it.
+	HashTable locks the complete collection to provide synchronization whereas ConcurrentHashMap only locks segments to achieve synchronization and hence better efficient and faster
+
+36). How do you name all prime numbers to n very fast
+
+36). https://csqa.io/question/924/
+
+38). Define what is meant by "containerisation"
+
+39). Architecture of famous software (Netflix/Twitter)
+
+43). How you were using GIT
+	Trunk based
+
+45). REST full API design
+
+56). Total # of numbers that satisfy x*(x+1) that fall within a and b (a, b, x all integers and a<=b)
+
+57). JVM Garbage collections technique.
+
+59). A gambler has two strategies: all-in (which doubles the amount played) and one chip. 
+He gains n and used at most k times the all-in strategy. Compute the minimum number of rounds
+
+60). A string represents a sequence of left and right shoes of the same model (e.g. "LRLRLLR"). 
+A worker in the shoes factory should be assigned a subsequence containing the same amount of left and right shoes. 
+Compute the maximum number of workers that can be assigned to a specified sequence of left and right shoes
+
+61). Build a data structure which keeps track of minimal and maximum elements
+	Min and max heap
+
+63). Basic Algo questions. 1 DP question and then design questions
+
+64). They asked me about certain sorting algorithms their implementation and advantages etc
+
+65). The first interviewer asked me (live coding) to do a circuit break with n attempts to connection with database. I had some difficulty to understand what he really wanted at the first time and I'm getting nervous during interview.
+
+66). Can you explain me what difficulties about microservices
+
+67). Functional staff
+
+70). Implement a code that inform with a given word is a palidrome or not.
+Apply reverse to an world without use StringBuilder.
+
+71). Kafka questions
+
+72). Write code that merges a list of intervals
+	done
+
+73). Write a method which return how many palindromes are in a word. Eg: barbarabar has 7 (b,a,r,barab,a,r)
+
+74). What is the most common class in Java
+
+76). Explain Java exceptions types
+
+
+77). Upcase all the words in string which have length of 3
+
+79). Cookies and internal storage
+
+1). Can we create array Volatile 
+	Yes but only the reference will be ensured volatile but elements will not be
+2). Can I use volatile to make variable atomic	
+	Not all the type of variable can become atomic but 
+	Long and double can become atomic as it has 64bits(32+32)
+3). Practical use of volatile
+3). Volatile leads to false sharing also
+4). False sharing in the context of multi-threading (due to make cache performant complete cache line is read in single shot)
+		Performance issue in multi core system
+		same cache line has to be read by 2 threads where as 
+		only half data is used by thread 1 and other data is usefull for thread2
+		if half data is updated by t1 then other theard cache will get invalidated
+	Avoid :
+		Carefully align data with size of cache
+5). Busy spin/wait :
+		thread doesn't go to wait state instead keep waiting on loop
+		should only used in low latency app
+6). Swing is thread safe
+	No, used internal AWT  thread queue for pooling
+7). Thread local :
+	New variable created for that particular thread instead of task
+	Threadlocal becomes thread safe for any variable, example simpledateformat class
+	use carefully as this data remain with thread even if task is over
+	
+DS
+1). Flood_fill
+2). App architecture design (not distributed systems)
+3). API design (following REST principles)
+
+
+1). Load Balancing/Resilience
+   Type:
+      1). Server side
+      2). Client side
+   Policies:
+      1). Round robin
+      2). Weighted Round robin
+      3). Least connection
+      4). Least Weighted connection
+      5). Least Response Time connection
+      5). Source IP Hash
+      5). Source URL Hash
+         (Hasing is not usefull solution where as Consistent Hashing solve this issue)
+      6). Random
+
+   Applied Layer:
+      Layer 4(Transport Layer):
+         Pro:
+            1). Simple load balancer
+            2). Efficient because no logic
+            3). More secure in terms of data (because load balancer cannot decrypt data on layer 4)
+         Cons:
+            1). Not applicable for Microservices because Layer 4 cannot know the route where as MS uses routing to route to Services.
+            2). No caching because cannot find the data to cache
+            3). Not smart at all
+            
+      Layer 7(Application Layer)
+         Pros:
+            Smart Load balancer
+            Caching
+            Great for microservices
+         Cons:
+            Expensive then Layer 4
+            Need certificate to decrypt the message
+   
+2). Multi Threading implementation with Thread queue and Thread pool size and timeout of request
+3). Thread synchronization.
+4). Elevator Design
+5). Zookeeper for Uniqui Id generation
+	Server ->client1
+			->client2
+6). Distrubuted Caching:
+      Eviction Policies:
+         1). Least Recent Used
+         2). Least Frequent used
+      Fault Tolerance:
+         1). Regular interval snapshot
+         2). Log reconstruction
+      Cache access pattren for Add/Update request from user:
+         1). Write through : 
+            Write into cache and then DB and then respond to User & used for critical data
+         Issue : (other cache in distributed system may be outdated)
+         2). Write Around
+            Write the data into DB and not changed to Cache
+         3). Write Back  : 
+            Write into DB and that  async service will update all the distributed cache to invalidate the data in them
+         4). Hybrid Write
+            Keep writing the data into Cache  and after every interval(10sec) of time add bulk entries to DB and invalidate the entrier to othr cache
+      Event Driven architecture is followed for setting and getting because of multiple calls
+         [Enent Pool]->[Thread Pool] ->{RAM}
+
+
+         
+7). Scaling Types:
+      Horizontal :
+         Multiple system of small configuration
+         Fault tollerant and Highly available
+         Slow communication because of Network call
+         No limit to hardware
+         
+      Vertical :
+         Single High config. system available 
+         Single point of Failure
+         Fast communication because of inter process comminucation
+         Limit to hardware
+8). Conccurency in stateless comminication :
+      Solution 
+         1). Etags
+         2). Prebooking table         
+9). Synchronous data transfer protocol for browser
+      STOMP:
+         1). Plain text data transfer
+         2). STOMP connections can be established via TCP or WebSockets
+         3). Easy implemented in Java Spring boot
+      XMPP :
+         1). XML for data transfer
+         2). XMPP supports TCP or HTTP
+         3). Thirt party library in Java
+10). Single Point of failure design  pattern soluiton:
+      1). Master slave / Multiple nodes for services/DB
+      2). Multiple load balancer(single DNS routing to multiple LB/IP)
+      3). Multiple region Backup
+11). Cascaded failure design pattern:
+      Causes:
+         1). No circuit breaker
+         2). No Request Rate limiter
+         
+12). Rate Limiter applied on the basis of:
+   Need: 
+      1). Avoid Bruteforce attack
+      2). DOS
+      3). Better UX
+      4). Operational cost
+   
+   Limit implemented on criteria:
+   1). Number of User limit
+   2). Per user how many session(conccurent session) limit
+   3). IP based limit
+   4). Server Based Limit
+   
+   Rate Limiter for Single system:
+      Solution/Algorithm used:
+         1). Token Bucket : Based on Username & time is the key for storing the request and assign tokken to every requuest untill tokken finished , same user login from multiple session request quantity will decrease to half
+         2). Leaky Bucket : Single Bucket for each user is filled at every request, overflow when bucket is full,And bucket keep leaking to execute certain request and refilling new requests
+         3). Sliding Logs : storing all logs per min based on timestamp and reaching every request old requests are cleared and count is calculated of set if not reach threshold then in else out.
+         4). Sliding window counters : count the requests every second and store that sum all count and check whether sum is exceeding the threshold or not when every new request comes
+   Rate Limiter on Distributed system:
+      Issues:
+         Each node must not have their own cache to store data or else it will break the rate rule for each user
+      Solution:
+         1).Sticky Sessions in Load Balancer
+            Pros:
+               Simple
+            Cons: 
+               The disadvantages include a lack of fault tolerance and scaling problems when nodes get overloaded
+         2). Centralized Data Store
+            Pros:
+               More flexible for load-balancing rule
+            Cons:
+               Increased latency making requests to the data store, race conditions
+         3). Relax Rate Limit to some extend can give better result
+            >Keep local cache with every node
+            >keep sync nodes with each other.
+13). Self-Recovery:
+      Self Recovery ensures high availability
+         Load balancing
+      
+14). Fail Over:
+      Solution:
+         1). Caching : out dated then nothing
+         2). Bulkheads(Not completly studies)
+         3). Circuit breakers 
+         4). Rate Limiter
+17). JIT (Just in time compiler)
+     It is a program that helps in converting the Java bytecode into instructions that are sent directly to the processor by working with JVM.
+     Some part is taken care by JVM and some JIT
+     
+15). Synchronization vs Lock:
+      Synchronization:
+         1). Sequencing of thread
+         2). Need to releasing the lock in LIFO else deadlock
+         3). Underlyning complexity taken care by Java 
+         4). Organized way of locking and unlocking (JVM does aquiring and releasing)
+      Lock: is a interface
+         1). Can decide the thread priority.
+         2). Order of thread flexibility
+         3). If error occure before releasing the lock then thread will never release aquired block and at end Deallock
+         4). Developer has flexibility to lock small part.
+18). False Sharing: When same cache line is being shared by multiple threads(In same cache line data is being stored by all 4 threads)
+      Whenever one thread get that cachche line it updates its data and invalidate others data 
+     Solution: put all the atomic variable for each thread in different cache line 
+17). Sharding: 
+
+21). Volatile variable in Java : Every thread has its own cache and share a common cache as well But when you make changes in one variable may not be visible to other because of its own cache
+      Boolean can be better example for this
+      boolean run=true
+      Thread1  while(run){
+            syso("runing")
+         } 
+      Thread2
+         Thread.sleep(5000)
+         run=false
+         
+      Theoritically it should work but It won't because thread 1 has run in its own cache which will never get updated and thread will never stop
+      Volatile solve this issue : any visibility problem will be solved by volatile
+24). What is the right data type to represent a price in Java? 
+      BigDecimal if memory is not a concern and Performance is not critical, 
+	  Use BigDecimal ("")<- String constructor to get accurate results
+	  Otherwise double with predefined precision
+      
+      Integer->Long (safe to use for financial things)
+      Float -> Double (unsafe to use on financial values)
+24). Byte to long 
+	ByteBuffer buffer = ByteBuffer.wrap(array);
+    return buffer.getLong();
+25). Can we cast an int value into byte variable? what will happen if the value of int is larger than byte
+	Yes but int is 32 byte and rest bits will vanish
+26). Cloneable interface is marker interface which doesn't have any method	
+	clone () method is inside Object interface
+27). Difference between a = a + b and a += b
+	a+=b: first cast both into same format and then add
+		no error while casting is long ->int and then addition
+	a + b: add without converting
+		error if size increases because no casting
+27). What is the size of int in 64-bit JVM
+	The size of an int(primitive) variable is constant in Java, it's always 32-bit irrespective of platform
+28). Can I store a double value in a long variable without casting
+	No because double is larger
+29). Why String is immutable
+	Can be used in multithreaded env.
+	String pool
+	
+25). How do you convert bytes to String? 
+      you can convert bytes to the string using string constructor which accepts byte[], just make sure that right character encoding otherwise platform's default character encoding will be used which may or may not be same
+26). Difference between a = a + b and a += b ? (answer)
+      The += operator implicitly cast the result of addition into the type of variable used to hold the result. 
+      When you add two integral variable e.g. variable of type byte, short, or int then they are first promoted to int and them addition happens. 
+      If result of addition is more than maximum value of a then a + b will give compile time error but a += b will be ok as shown below
+27). What will this return 3*0.1 == 0.3? true or false? (answer)
+   This is one of the really tricky questions. Out of 100, only 5 developers answered this question and only of them have explained the concept correctly. 
+   The short answer is false because some floating point numbers can not be represented exactly
+28). Constructor Chaining
+	calling super ni constructor
+	if no constructor the default
+
+28). Can we use String in the switch case? 
+      Yes from Java 7 onward we can use String in switch case but it is just syntactic sugar. Internally string hash code is used for the switch. 
+      See the detaiedl answer for more explanation and discussion
+18). Diamond problem in multiple inheritance
+   If a child class inherits the property from multiple classes is known as multiple inheritance. Java does not allow to extend multiple classes.
+   The problem with multiple inheritance is that if multiple parent classes have the same method name, then at runtime it becomes difficult for the compiler to decide which method to execute from the child class.
+
+19). What is default size of ArrayList and HashMap in Java? 
+   As of Java 7 now, default size of 
+	Default :
+		ArrayList is 10 	-grows->*1.5
+		HashMap is 16		-grows->*2
+20). Fail fast :iterable  (arraylist linklist) Concurrentmodification
+			even if you try to modify another collection inside iterator it will throw concurrentmodification exception
+	 Fail Safe :concurrentHashMap, cocurrentSkiplist, copyonwriteList 
+		
+20). Marker interface:
+      A Marker interface can be defined as the interface having no data member and member functions. In simpler terms, an empty interface is called the Marker interface. 
+      The most common examples of Marker interface in Java are Serializable, Cloneable etc. The marker interface can be declared as follows.
+      public interface Serializable{
+      }
+16). ArrayList : increase the size by 50%
+
+28). Can we use random numbers in the hashcode() method? (answer)
+      No, because hashcode of an object should be always same. 
+      See the answer to learning more about things to remember while overriding hashCode() method in Java
+
+19. Collection class in Java class hierarchy:
+                           |<--List
+      Iterable<--Collection|<--Queue
+                           |<--Set
+20). What is a classloader in Java: subset of JVM (Java Virtual Machine) that is responsible for loading the class files
+      Bootstrap ClassLoader
+      Extension ClassLoader
+      System/Application ClassLoader
+      
+
+19). String Pool:Space in heap for storing strings
+   
+
+17). Difference between : this() and super() 
+         This                    Super
+   1).   current class pointer   base class pointer
+
+18). What is heap and formulae to access (https://www.youtube.com/watch?v=HqPJF2L5h9U)
+	N	ode : i
+	Left child : 2*i
+	Right child : 2*(i+1)
+	Parent : int(i/2)
+
+18). Difference between String, String Builder, and String Buffer.
+   Factor	         String	            String Builder	         String Buffer
+   Storage Area	   ConstantStringPool	Heap Area	            Heap Area
+   Mutability	      Immutable	         Mutable	               Mutable
+   Thread Safety	   Yes	               Yes	                  No
+   Performance	      Fast	               Slow	                  Fast
+
+   
+15). Elastic search :
+      Pros:
+         1). Realtime distributed analytics
+         2). Full text search instead of table based
+         3). Used to analyse the logs and present into UI
+         4). Scalable/really fast multi lingual
+      Uses:
+         Application logs can be pushed into Elasticsearch for automatic error detection and reporting system
+16). Short Polling/Long Polling/WebSocket
+      
+      
+17). Blocking queue implementation in Java
+18). Consurrent HashMap implementation
+
+21). Consistent hashing
+   Why Need of Hashing  
+      Traditional hashing already distribute the load over all the server equally 
+      but when create issue when new server is added or removed then load is not evenly distributes and some machine takes around half of complete system request load
+   Solution:
+      Double the number of each server in the hash table(calculate hash for first server with H1 and H2 for second and H3 for third and so on)
+      which will increase the number of evenly distributes server in network so load will be almost even on every server
+      
+     
+
+20). Parking lot
+
+21). AB testing
+   Firebase : remote config tool which  is responsible for sending the component or string to Device 
+      Add firebase library into your device and small code as well which will tell Google analytics about the changes.
+      Add experiment: % of devices to test which version to test
+      Add parameter 
+      Add goal : for how many days ,purpose to test
+      Complete the experiment
+      Analyse on Firebase : result will be shown on range  how much was user retention.
+      
+   Google analytics : used for monitoring the ativities of device
+         
+23). Messaging queue :
+	Platform/Broker which take care of delivering the content to the subscriber
+	Producer: Person who send the message on topic 
+	Consumer: Subcribe the topic to recieve the message sent by producer
+	Broker: Who exchange the message between consumer and producer (Leader for each topic is different)
+	Cluster : group of computer working for similar task
+	Topic : Unique name for message streaming
+	Partition :When message is large then can be stored in partition and each partition would be 
+		stored each partition on one computer, And Partitioned is created by developer during topic creation
+	Offset : sequence number of for message
+		Unique Idof message :  Topic name ->Partition number-> Offset
+	Zookeeper : decidewhich broker to working
+	
+24). Sorting Complexity:
+   Selection         Sort	Ω(n^2)	   θ(n^2)	      O(n^2)
+   Bubble            Sort	Ω(n)	      θ(n^2)	      O(n^2)
+   Insertion         Sort	Ω(n)	      θ(n^2)	      O(n^2)
+   Heap              Sort	Ω(n log(n))	θ(n log(n))	   O(n log(n))
+   Quick             Sort	Ω(n log(n))	θ(n log(n))	   O(n^2)
+   Merge             Sort	Ω(n log(n))	θ(n log(n))	   O(n log(n))
+   Bucket            Sort	Ω(n+k)	   θ(n+k)	      O(n^2)
+   Radix             Sort	Ω(nk)	      θ(nk)	         O(nk)
+
+
+
+Generic Questions: 
+
+1). Difference between Linked List and ArrayList
+2). Difference === & == JS
+
+
+Heap Memory : 
+Java Heap Memory is part of memory allocated to JVM by the Operating System.
+
+25). Multi threading :
+	synchronized static vs non static 
+	synchronized static: locks class
+	synchronized non static : locks object
+	Both can be accessed parallely
+	But If one thead acquire static method then other thread can not access other static method
+26). Can  a thread call  mutiple synchronized  method  of the same object which it hold the lock	
+	Yes : this kind of locks are reentrant lock
+		one lock can be locked and unlocked multiple time
+27). Can 2 different threads call same class 2 different static methods?
+	No because thread locks complete class
+28). static method can lock non static method on lock 
+	No, one is for objec and other is for class
+29). Bounded context:
+	Specific task for specific Ms and dedicated db 
+30). Design pattern 
+	Domain driven design
+	Api Gateway based design
+31). Java Vertx : used for reactive programming
+32). Classloader 
+	Bootstrap class loader
+	Extension class loader
+	System class loader
+33). Advantage of Singleton Pattern over Static Class in Java
+	Singleton : 
+		OOPS , 
+		Inheritance constructor etc and 
+		Can be passed from one method to another
+		Lazy loading
+		Runtime process
+	Static class : 
+		compile time process
+34). Singleton 
+	Concurrent system :
+		-synchronized mehtod
+		-synchronized block while updating the value (double check the null value)
+		-use eager loading using static block (because in static block you can handle exception)
+		-Enum (construction on high concurrent system is already handled)
+	Serializable:
+		readResolve  and use the same method
+	Cloning:
+		cloning return exception
+35). Exception in inheritance
+	A->B inplements A  B.method1 can only throw unchecked exception is not declared any exception in parent
+	
+36). Aggregation implies a relationship where the child can exist independently of the parent. For example, Bank and Employee, delete the Bank and the Employee still exist.
+	whereas Composition implies a relationship where the child cannot exist independent of the parent. Example: Human and heart, heart don’t exist separate to a Human.
+	Aggregation relation is “has-a” and composition is “part-of” relation.
+	Composition is a strong Association whereas Aggregation is a weak Association.
+	
+37). Relationsihp type
+	1). is a (inheritance)
+	2). stronger and weak composite
+		hash a/uses (may have and not have) (agregation)
+		part of/owns (always have) (composition)
+
+38). JWT storage
+	Expiry or logout by blacklisting of TTL  or clearng the data from FE storage
+	Keep Refresh Tokken encrypted with different key 
+	and store it inside httponly cookie because javascript doesn't have to access to httpOnly
+	
+39). Cookies :	
+		4kb
+		always sent with request
+		Can set manual TTL (control with developer)
+		accesibile from any tab 
+	
+	 Session :
+		5mb
+		never sent with request
+		on tab close
+		accesibile from same tab
+	 
+	 Local Storage
+		10mb
+		never sent with request
+		never
+		accesibile from any tab
+	
+40). Domain driven design
+	1). Entity vs VAlue object
+			Entity : 
+				-If 2 similar looking object need to be distinguishable or 2 objct cannot replace each other then that is an entity
+				-Mutable
+			
+			Value Object: 
+				-If one object replace other object 
+				-Immutable
+				
+41). Microservice and monolith architecture
+
+42). What is SOLID in OOP
+
+43). No Sql vs Sql databases
+		SQL :
+			Relational
+			Structured data
+			CA can only be provided
+		No SQL :
+			Non relational 
+			Un structured
+			CP or PA only can be provided
+			Low throughput
+		
+
+44). What is microservice and monolith architecture? what are the pros and cons
+	Monolithic:
+		Pro: 
+			Simplicity
+			Performance : Individual thread completion time 
+		Cons:
+			Reliability : Single bug can bring whole app down
+			Update : single update would need whole application to be build and deployed again 
+			Single Technology stack : 
+			Tight coupling
+	Microservices:
+		Pro:
+			Scalability
+			Lose coupling
+			High throughput
+			Higher latency than that of Monolith
+			Easily tested
+			Easily deployable
+			Distribution of concerns
+			Complex Auth mechanism
+			High agility
+			Flexibility in technology
+		Cons:
+			Highly skilled
+			Single request completion takes time
+			Complex structure
+			
+	SOA:
+		Pro:
+			Better then Monolith in code separation and reusability
+			Separately deployable
+			Separately tested
+		Cons:
+			Central governance and for architecture design for complete application
+			Share same DB
+			No full freedom for scaling
+			
+			
+
+45). OOP questions, 
+	Garbage collector, 
+	Java Virtual Machine, 
+	Threads vs Processes, 
+	Concepts of reusable code
+	Domain Driven Design,
+	Garbage collection policies,
+	
+	etc
+
+46).  Develop delivery system for couriers
+		Navigation based
+		Bike rental
+		Spotify
+		Messaging app
+		food delivery system 
+		
+47). Distributed systems: trade-offs between
+	different architectures
+	
+48). eventual consistency, patterns of async
+	communication etc
+49).  JVM - Working and Heap
+
+48).  Process and thread - difference and relation
+
+49). Deadlock and concurrency
+
+50). Composition vs Inheritance - Relationship and when to use what
+
+51). Deployment Strategies
+52). CICD - Process
+53). Domain Driven Design
+54). Database scalability - vertical and horizontal scaling
+55). Describe how the JVM works
+56). SQL vs noSQL (where to use each one, differences and trade offs, how to run a migration without downtime)
+57). Elastic search 
+		Lucene Search :
+			Steps:
+					Tokkenizer
+					Stemization
+					Inverted indexing
+		
+		Mapping/DB tables	
+			Post API called to insert mapping
