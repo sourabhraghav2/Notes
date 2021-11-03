@@ -843,3 +843,15 @@ Java Heap Memory is part of memory allocated to JVM by the Operating System.
 		
 		Mapping/DB tables	
 			Post API called to insert mapping
+
+
+
+	Functional :
+		Regression testing :
+			Sanity dependent feature test`
+		Smoke overview(just to ensure the maine funtionality)
+		Component testing 
+	
+	Perfomance testing 
+		Stress test : 
+	

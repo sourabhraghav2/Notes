@@ -10,41 +10,52 @@
 		8). Monitoring  (CCTV, Admin panel)
 		9). Extendible/Reusable
 	
-	Solution
-		Top down
-		Bottom Up
+	Functional features:
+		1. bookSlot()
+		2. releaseSlot()
+		3. makePayment()
+		4. verifyTicket()
+		5. generateTicket()
+		6. getAvailableSlots()
+		7. getParkingPrice()
+	
+	Non functional requirements:
+		1. Capacity
 		
-	Parking lot terminal
-		1). Parking Spots
-		2). Entry exit terminal
-		3). Booking Recipt (Email,message) & notification
-	Class hirerchy
-		-ParkingSpot:interface
-			id:int
-			vehicle:Vehicle
-			status:Boolean
-			reserve:()->{}
-		Special implements ParkingSpot
-		Compact implements ParkingSpot
-		Large implements ParkingSpot
-		Motorbike implements ParkingSpot
-		
-		-Terminal : interface
-			id: int
-			floor:int
-			status:boolean
-			generateTicket:()->{}
-			shortestAvailableSlot:Min Heap
-			reservedSlot:Set
-		Entry: Terminal
-		Exit: Terminal
-		
-		-Strategy:interface
-			bookSlot:()->{}
-			releaseSlot:()->{}
-		
-		FlatRate:Strategy 
-		AreaPeakRate:Strategy 
+	Model/Entities
+		1. Ticket
+			-Digital 
+			-Hardcopy
+		2. Slot (id:int,vehicle:Vehicle,status:Boolean)
+			-Compact
+			-Small
+			-Large
+			-ExtraLarge
+		3. Terminal(id:int,floor:int,status:boolean)
+			-Entry
+			-Exit
+		4. Payment(Factory)
+			-Online
+			-Offline
+			-Wallet
+		5. PricePlanStrategy(duration,date,customerType)
+			-PeakHourStrategy
+			-PermanentUserStrategy
+			-AdHocUser
+		6. Logger (Observable)
+			SensorLogger
+		7. ParkingLot (Singleton)
+		8. Configuration (Extrnal configuration)
+		9. SlotProcessor{
+			bookSlot(slitId,vehicleId),
+			releaseSlot(bookingId)
+			getAvailableSlots(buildingId,floorNumber)
+			shortestAvailableSlot(terminalID)}
+		10. TicketProcessor{
+			generateTicket(bookingId,type=email,message)
+			verifyTicket(bookingId)}
+		11. PriceProcessor{
+			getPriceChart()}
 
 2). Elevator Design
 	How many floors in building
@@ -55,8 +66,60 @@
 		Max number of people transported
 		Optimization in resource usage (maintainance cost)
 3). Design a Traffic Controller System
-		
-		
+
+4). Design chat application
+5). Payment tracking system
+
+6). Navigation based (https://miro.com/app/board/o9J_lq_-ATo=/?invite_link_id=282534372412)
+
+7). BikeRentalAppp{
+		Admin admin;
+		Set<User> users;
+		Set<Vehicle> availableVehicle
+		HashMap<Vehicle,Customer> occupiedVehicle;
+		HasmMap<User,PaymentStrategy> paymentStrategies;
+		boolean update(Admin admin)
+		List<Vehicle> getAvailableVehicle(limit)
+		Document bookVehicle(Vehicle,PaymentInfo,IdentityProof)
+		boolean registerUser(User user)
+	}
+
+	Interface : User (uid,name,identificationId,paymentInfo)
+		Class : Employee()
+		Class : Admin()
+		Class : Customer()
+
+	Enum : Channel(Online,Offline)
+
+	Interface : PaymentInfo(purchasedId,Status,BookingId)
+		Class : Card
+		Class : Cash
+		Class : Wallet
+		Class : BarCode
+	Enum PaymentStatus : PAID,UNPAID,DECLINED,REFUND
+
+	IdentityProof
+		DrivingLicense
+		Passport
+
+	Document :
+		BookingTicket
+		Recipt
+
+	Enum : BookingStatus: (AVAILABLE,OCCPUPIED)
+	Interface : Vehicle(id,seats,status,User)
+		Class : MotorBike
+		Class : ElectrixBike
+		Class : Bicycle
+
+	Interface : PaymentStrategy
+		Class : PeakHoursPricing
+		Class : RegularPricing
+	
+8). Soitify :(https://miro.com/welcomeonboard/REVud1pSbDVIVXRkdHZSc055c1BWOFB1QmJ3cEdtVDlDaWVKU3hENWl2RUtPZXNLRHVZcm84TkdLa3BZWlpTRnwzMDc0NDU3MzY1NjkwODY4OTA5?invite_link_id=908682209680)
+	(https://miro.com/app/board/o9J_lnZVGOQ=/)
+9). Amazon(https://miro.com/app/board/o9J_lm2kZrk=/)
+
 3). Google Drive
 	Functional requirement
 		Upload/Download
@@ -121,6 +184,7 @@
 		See feeds
 		Upload feeds
 		Activity logs
+			Elastic search
 			
 			
 8). Encryption and decryption

@@ -1,0 +1,116 @@
+
+public enum MessageState {
+    SENT, DELIVERED, SEEN
+}
+
+public enum ContentType {
+    TEXT, IMAGE, VOICE, VIDEO
+}
+
+public class User {
+    public Guid userId;
+    public string name;
+    public List<Guid> friends;
+    public List<Message> recMessages;
+    public List<Message> sendMessages;
+    public IChatService chatService;
+
+    public User(string name) {
+        this.userId = Guid.NewGuid();
+        this.name = name;
+        this.friends = new List<Guid>();
+        this.recMessages = new List<Messages>();
+        this.sendMessages = new List<Messages>();
+        this.chatService = new ChatService();
+    }
+
+    public void SendFriendRequest(Guid userId) { this.chatService.AddFriend(this.userId,userId); }
+    public void ReceiveFriendRequest(Guid userId) {friends.Add(userId);}
+    public void RemoveFriend(Guid userid) {friends.Remove(userId);}
+    
+    public void SendMessage(Guid rec, string content) {
+        var msg = new Message(this.userId, rec, content, new MessageContent(ContentType.TEXT,content));
+        chatService.SendMessage(this, rec, msg);
+        this.sendMessages.Add(msg);
+    }
+
+    public void ReceiveMessage(Message msg) {
+        msg.State = MessageState.DELIVERED;
+        this.recMessages.Add(msg);
+    }
+
+     public void SeenMessage(Message msg) {
+        var message = this.sendMessages.First(x=>x.messageId==msg.messageId)
+        message.State = MessageState.DELIVERED;
+    }
+}
+
+
+public interface IChatService {
+    User GetUser(Guid userId);
+    void CreateUser(string name);
+    void RemoveUser(Guid userId);
+    void AddFriend(Guid senderId, Guid friendId);
+    void RemoveFriend(Guid senderId, Guid friendId);
+}
+
+public class ChatService: IChatService  {
+    public List<User> users;
+
+    public ChatService() {
+        users = new List<User>();
+    }
+
+    public User GetUser(Guid userId){
+        return user.First(x=>x.userId==userId);
+    }
+
+    public void CreateUser(string name){ users.Add(new User(name)); }
+
+    public void RemoveUser(Guid userId){ users.Remove(GetUser(userId));  }
+
+    public void AddFriend(Guid senderId, Guid friendId){
+        User sender = GetUser(senderId);
+        User friend = GetUser(friendId);
+        friend.ReceiveFriendRequest(senderId);
+        sender.ReceiveFriendRequest(friendId);
+    }
+
+    public void RemoveFriend(Guid senderId, Guid friendId){
+        User sender = GetUser(senderId);
+        User friend = GetUser(friendId);
+        friend.RemoveFriend(senderId);
+        sender.RemoveFriend(friendId);
+    }
+
+    public void SendMessage(Guid senderId, Guid receiverId, Message msg){
+        var sender = GetUser(senderId);
+        var rec = GetUser(receiverId);
+        rec.ReceiveMessage(msg);
+        sender.SeenMessage(msg);
+    }
+}
+
+public class MessageContent {
+    public ContentType type;
+    public string content; // if type==Image, Voice, Video => URL else Text 
+    public MessageContent(ContentType type, string content) {
+        this.type = type;
+        this.content = content;
+    }
+}
+
+public class Message {
+    public Guid messageId;
+    public Guid sender; // user
+    public Guid receiver; // user
+    public MessageContent content;
+    public MessageState state;
+    public Message(Guid sender, Guid receiver, MessageContent content) {
+        this.messageId = Guid.NewGuid();
+        this.sender = sender;
+        this.receiver = receiver;
+        this.content = content;
+        this.state = MessageState.SENT;
+    }
+}
